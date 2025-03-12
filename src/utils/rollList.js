@@ -6,7 +6,7 @@ export const rollList = [
   },
   {
     name: "AMPILLI BINDU SOWJANYA",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0002",
   },
   {
@@ -31,7 +31,7 @@ export const rollList = [
   },
   {
     name: "BHARANIKALA NAGA MANIKANTA",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0007",
   },
   {
@@ -51,7 +51,7 @@ export const rollList = [
   },
   {
     name: "GOLLAPALLI VISHNU VARA PRASAD",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0011",
   },
   {
@@ -66,7 +66,7 @@ export const rollList = [
   },
   {
     name: "GUTTIKONDA VENKATA SAI",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0014",
   },
   {
@@ -233,7 +233,7 @@ export const rollList = [
   },
   {
     name: "TADDI SATEESH",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0049",
   },
   {

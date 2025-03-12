@@ -11,7 +11,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const expanded = useSelector((state) => state.sidebar.expanded);
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
-  
+
   const theme = isDarkTheme ? "dark" : "light";
 
   const sidebarRef = useRef(null);
@@ -48,8 +48,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full flex justify-between items-center px-6   md:py-4  shadow-md z-50 transition-colors ${
-          theme === "light" ?  "bg-white text-gray-900":"bg-gray-900 text-white" 
+        className={`fixed top-0 left-0 w-full flex justify-between items-center px-6   py-2 md:py-4  shadow-md z-50 transition-colors ${
+          theme === "light"
+            ? "bg-white text-gray-900"
+            : "bg-gray-900 text-white"
         }`}
       >
         <h1 className="text-xl font-bold">Attendly.</h1>
@@ -89,7 +91,11 @@ export default function Navbar() {
         ref={sidebarRef}
         className={`fixed top-0 left-0 h-screen w-64 shadow-md transform transition-transform duration-300 md:hidden z-50 ${
           expanded ? "translate-x-0" : "-translate-x-full"
-        } ${theme === "light" ?   "bg-white text-gray-900":"bg-gray-900 text-white"}`}
+        } ${
+          theme === "light"
+            ? "bg-white text-gray-900"
+            : "bg-gray-900 text-white"
+        }`}
       >
         <nav className="flex flex-col p-4">
           {navMenuList.map((item, index) => (

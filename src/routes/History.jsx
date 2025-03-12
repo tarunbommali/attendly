@@ -17,7 +17,7 @@ const History = () => {
   }, []);
 
   return (
-    <div className={`min-h-screen p-6 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
+    <div className={`min-h-screen mt-[-10px] p-6 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
       
       {/* Breadcrumbs */}
       <div className="text-sm mb-4">

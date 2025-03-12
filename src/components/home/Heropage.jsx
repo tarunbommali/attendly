@@ -3,104 +3,227 @@ import { useSelector } from "react-redux";
 import { rollList } from "../../utils/rollList";
 import { RiSortNumberAsc } from "react-icons/ri";
 import { FaListCheck } from "react-icons/fa6";
+import { CiCalendarDate } from "react-icons/ci";
+import { TiGroup } from "react-icons/ti";
+import { FaEdit } from "react-icons/fa";
+import { MdOutlineSubdirectoryArrowLeft } from "react-icons/md";
 
 const Heropage1 = () => {
-  const [presentsDetails, setPresentsDetails] = useState([]); // Store selected students
-  const [displayStyle, setDisplayStyle] = useState("number"); // Controls display format
-  const todayDate = new Date().toLocaleDateString(); // Get today's date
+  const [presentsDetails, setPresentsDetails] = useState([]);
+  const [displayStyle, setDisplayStyle] = useState("number");
+  const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
+  const today = new Date();
+  const todayDate = `${String(today.getDate()).padStart(2, "0")}/${String(
+    today.getMonth() + 1
+  ).padStart(2, "0")}/${today.getFullYear()}`;
 
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
   const theme = isDarkTheme ? "dark" : "light";
 
-  // Load attendance from localStorage on page load
   useEffect(() => {
-    const savedAttendance = JSON.parse(localStorage.getItem("attendance")) || {};
+    const savedAttendance =
+      JSON.parse(localStorage.getItem("attendance")) || {};
     if (savedAttendance[todayDate]) {
       setPresentsDetails(savedAttendance[todayDate]);
+      setAttendanceSubmitted(true);
+    } else {
+      setAttendanceSubmitted(false);
     }
   }, [todayDate]);
 
-  // Toggle function to switch between display styles
   const toggleDisplayStyle = () => {
     setDisplayStyle((prev) => (prev === "number" ? "number + name" : "number"));
   };
 
-  // Toggle attendance
   const toggleAttendance = (name) => {
-    setPresentsDetails((prev) =>
-      prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]
-    );
+    if (!attendanceSubmitted) {
+      setPresentsDetails((prev) =>
+        prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]
+      );
+    }
   };
 
-  // Save attendance to localStorage
   const handleSubmit = () => {
     const attendanceData = JSON.parse(localStorage.getItem("attendance")) || {};
     attendanceData[todayDate] = presentsDetails;
     localStorage.setItem("attendance", JSON.stringify(attendanceData));
     alert("Attendance saved successfully! ✅");
-    setPresentsDetails([]); 
-
+    setAttendanceSubmitted(true);
   };
 
-  // Clear all attendance for the day
-  const handleClearAll = () => {
-    setPresentsDetails([]);
-    const attendanceData = JSON.parse(localStorage.getItem("attendance")) || {};
-    delete attendanceData[todayDate]; // Remove today's record
-    localStorage.setItem("attendance", JSON.stringify(attendanceData));
-    alert("Attendance cleared! ❌");
-   };
+  const handleEdit = () => {
+    setAttendanceSubmitted(false);
+  };
 
   return (
-    <div className={`min-h-screen px-4 md:px-10 py-6 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}>
-      
-      {/* Header Section */}
-      <div className="flex flex-col md:flex-row items-center justify-between mb-6">
-        <h1 className="text-xl md:text-2xl font-semibold">Date: {todayDate}</h1>
-        <h1 className="text-xl md:text-2xl font-semibold">Present: {presentsDetails.length}</h1>
-
-        {/* Toggle button for display style */}
-        <button onClick={toggleDisplayStyle} className="p-2 rounded bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 transition">
-          {displayStyle === "number" ? <RiSortNumberAsc size={20} /> : <FaListCheck size={20} />}
+    <div
+      className={`min-h-screen px-4 md:px-10 py-6 ${
+        theme === "dark"
+          ? "bg-gray-900 text-white"
+          : "bg-gray-100 text-gray-900"
+      }`}
+    >
+      <div className="flex flex-row items-center justify-between mb-6">
+        <div className="flex md:flex-row items-center">
+          <div className="flex items-center text-lg md:text-xl font-semibold mx-2">
+            <span className="mx-1">
+              <CiCalendarDate />
+            </span>
+            <span>{todayDate}</span>
+          </div>
+          {/* Total Students  */}
+          <div className="hidden md:flex items-center text-lg md:text-xl font-semibold mx-2">
+            <span className="mx-1">
+              <TiGroup />
+            </span>
+            <span className="italic">Total: {rollList.length}</span>
+          </div>
+          {/* Regular Students  */}
+          <div className="hidden md:flex items-center text-lg md:text-xl font-semibold mx-2">
+            <span className="mx-1">
+              <TiGroup />
+            </span>
+            <div>
+              <span className="text-green-500 italic">
+                Regular: {rollList.filter((s) => s.type === "Regular").length}{" "}
+              </span>
+            </div>
+          </div>
+          {/* present Students */}
+          <div className="hidden md:flex items-center text-lg md:text-xl font-semibold mx-2">
+            <span className="mx-1">
+              <TiGroup />
+            </span>
+            <span className="italic">Present: {presentsDetails.length}</span>
+          </div>
+          {/* Absent Students  */}
+          <div className="hidden md:flex items-center text-lg md:text-xl font-semibold mx-2">
+            <span className="italic">
+              Absent:{" "}
+              {rollList.filter((s) => s.type === "Regular").length -
+                presentsDetails.filter((name) =>
+                  rollList.some((s) => s.name === name && s.type === "Regular")
+                ).length}
+            </span>
+          </div>
+        </div>
+        <button
+          onClick={toggleDisplayStyle}
+          className={`p-2 rounded transition ${
+            theme === "dark"
+              ? "bg-gray-700 text-white hover:bg-gray-600"
+              : "bg-gray-300 text-black hover:bg-gray-400"
+          }`}
+        >
+          {displayStyle === "number" ? (
+            <FaListCheck size={20} />
+          ) : (
+            <RiSortNumberAsc size={20} />
+          )}
         </button>
+      </div>
+      <div className="flex flex-col md:hidden my-2 mb-2">
+      <div className="flex justify-between items-center">
+        {/* Total Students  */}
+        <div className="flex items-center text-lg md:text-xl font-semibold mx-2">
+          <span className="mx-1">
+            <TiGroup />
+          </span>
+          <span className="italic">Total: {rollList.length}</span>
+        </div>
+        {/* Regular Students  */}
+        <div className="flex items-center text-lg md:text-xl font-semibold mx-2">
+          <span className="mx-1">
+            <TiGroup />
+          </span>
+          <div>
+            <span className="text-green-500 italic">
+              Regular: {rollList.filter((s) => s.type === "Regular").length}{" "}
+            </span>
+          </div>
+        </div></div>
+        <div className="flex justify-between items-center">
+        {/* present Students */}
+        <div className="flex items-center text-lg md:text-xl font-semibold mx-2">
+          <span className="mx-1">
+            <TiGroup />
+          </span>
+          <span className="italic">Present: {presentsDetails.length}</span>
+        </div>
+        {/* Absent Students  */}
+        <div className="flex items-center text-lg md:text-xl font-semibold mx-2">
+          <span className="mx-1">
+            <TiGroup />
+          </span>
+          <span className="italic">
+            Absent:{" "}
+            {rollList.filter((s) => s.type === "Regular").length -
+              presentsDetails.filter((name) =>
+                rollList.some((s) => s.name === name && s.type === "Regular")
+              ).length}
+          </span>
+        </div></div>
       </div>
 
       {/* Attendance List */}
-      <div className="flex flex-wrap  gap-3">
-        {rollList.map((item, index) => (
-          <button
-            key={index}
-            className={`px-4 py-2 rounded-lg font-medium transition ${
-              presentsDetails.includes(item.name)
-                ? "bg-green-500 text-white"
-                : theme === "dark"
-                ? "bg-gray-700 text-gray-200 hover:bg-gray-600"
-                : "bg-gray-200 text-gray-900 hover:bg-gray-300"
-            }`}
-            onClick={() => toggleAttendance(item.name)}
-          >
-            {displayStyle === "number"
-              ? item.registrationNumber.slice(-2) // Show only last 2 digits of reg. no.
-              : `${item.registrationNumber.slice(-2)} ${item.name}`} {/* Show number + name */}
-          </button>
-        ))}
+      <div className="flex flex-wrap gap-3">
+        {rollList.map((item, index) => {
+          const isPresent = presentsDetails.includes(item.name);
+          const isDetained = item.type === "Detained";
+
+          return (
+            <button
+              key={index}
+              className={`px-4 py-2 rounded-lg font-medium transition ${
+                isDetained
+                  ? "bg-black text-white cursor-not-allowed" // Highlight detained students
+                  : isPresent
+                  ? "bg-green-500 text-white"
+                  : theme === "dark"
+                  ? "bg-gray-700 text-gray-200 hover:bg-gray-600"
+                  : "bg-gray-200 text-gray-900 hover:bg-gray-300"
+              }`}
+              onClick={() => !isDetained && toggleAttendance(item.name)}
+              disabled={isDetained || attendanceSubmitted} // Prevents detained & submitted edits
+            >
+              {displayStyle === "number"
+                ? item.registrationNumber.slice(-2)
+                : `${item.registrationNumber.slice(-2)} ${item.name}`}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Submit & Clear Buttons */}
       <div className="mt-6 flex justify-between">
-        <button 
-          onClick={handleClearAll} 
-          className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition"
-        >
-          Clear All ❌
-        </button>
-
-        <button 
-          onClick={handleSubmit} 
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition"
-        >
-          Submit Attendance ✅
-        </button>
+        {attendanceSubmitted ? (
+          <button
+            onClick={handleEdit}
+            className={`flex items-center px-6 py-3 rounded-lg text-lg font-semibold transition ${
+              theme === "dark"
+                ? "bg-yellow-400 hover:bg-yellow-500 text-black"
+                : "bg-yellow-500 hover:bg-yellow-600 text-white"
+            }`}
+          >
+            <span>Edit Attendance</span>
+            <span className="mx-1">
+              <FaEdit />
+            </span>
+          </button>
+        ) : (
+          <button
+            onClick={handleSubmit}
+            className={`flex items-center px-6 py-3 rounded-lg text-lg font-semibold transition ${
+              theme === "dark"
+                ? "bg-blue-400 hover:bg-blue-500 text-white"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            }`}
+          >
+            <span>Submit Attendance</span>
+            <span className="mx-1">
+              <MdOutlineSubdirectoryArrowLeft />
+            </span>
+          </button>
+        )}
       </div>
     </div>
   );
