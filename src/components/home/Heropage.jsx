@@ -56,7 +56,7 @@ const Heropage1 = () => {
 
   return (
     <div
-      className={`min-h-screen   py-2 ${
+      className={`min-h-screen  mt-[-10px] py-2 ${
         theme === "dark"
           ? "bg-gray-900 text-white"
           : "bg-gray-100 text-gray-900"
@@ -96,7 +96,7 @@ const Heropage1 = () => {
         attendanceSubmitted={attendanceSubmitted}
       />
 
-      <div className="mt-6 flex justify-between">
+      <div className="mt-6 mx-4 flex justify-between">
         {attendanceSubmitted ? (
           <button
             onClick={handleEdit}

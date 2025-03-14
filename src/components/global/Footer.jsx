@@ -1,12 +1,31 @@
+import { useSelector } from "react-redux";
+import { PORTFOLIO_URL } from "../../utils/constants";
 
 const Footer = () => {
-  return (
-    <footer className="footer sm:footer-horizontal footer-center bg-[#1d232a]  text-base-content p-4">
-    <aside>
-      <p>No Copyright © {new Date().getFullYear()} - Designed and Developed by <a href="https://tarunbommali.netlify.app/" className="text-green-400">Tarun</a></p>
-    </aside>
-  </footer>
-  )
-}
+  const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
+  const theme = isDarkTheme ? "dark" : "light";
 
-export default Footer
+  return (
+    <footer
+      className={`footer sm:footer-horizontal footer-center p-4 transition ${
+        theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-200 text-gray-900"
+      }`}
+    >
+      <aside>
+        <p>
+          No Copyright © {new Date().getFullYear()} - Designed and Developed by{" "}
+          <a
+            href={PORTFOLIO_URL}
+            className={`${
+              theme === "dark" ? "text-green-400" : "text-green-600"
+            }`}
+          >
+            Tarun
+          </a>
+        </p>
+      </aside>
+    </footer>
+  );
+};
+
+export default Footer;

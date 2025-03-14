@@ -21,8 +21,8 @@ const AttendanceHeader = ({ todayDate, toggleDisplayStyle, displayStyle, theme }
         onClick={toggleDisplayStyle}
         className={`p-2 rounded transition ${
           theme === "dark"
-            ? "bg-gray-700 text-white hover:bg-gray-600"
-            : "bg-gray-300 text-black hover:bg-gray-400"
+            ? "text-white hover:bg-gray-600"
+            : "text-black hover:bg-gray-400"
         }`}
       >
         {displayStyle === "number" ? <FaListCheck size={18} /> : <RiSortNumberAsc size={18} />}

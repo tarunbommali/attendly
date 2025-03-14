@@ -76,7 +76,7 @@ export const rollList = [
   },
   {
     name: "EDUBILLI RAMYA",
-    type: "Detained",
+    type: "Regular",
     registrationNumber: "24VV1F0016",
   },
   {
