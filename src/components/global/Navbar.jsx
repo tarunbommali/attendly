@@ -51,7 +51,7 @@ export default function Navbar() {
         className={`fixed top-0 left-0 w-full flex justify-between items-center px-6   py-2 md:py-4  shadow-md z-50 transition-colors ${
           theme === "light"
             ? "bg-white text-gray-900"
-            : "bg-gray-900 text-white"
+            : "bg-[#1d232a] text-white"
         }`}
       >
         <h1 className="text-xl font-bold">Attendly.</h1>

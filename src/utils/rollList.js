@@ -50,50 +50,51 @@ export const rollList = [
     registrationNumber: "24VV1F0010",
   },
   {
-    name: "GOLLAPALLI VISHNU VARA PRASAD",
-    type: "Detained",
+    name: "CHAPPA RUPA",
+    type: "Regular",
     registrationNumber: "24VV1F0011",
   },
   {
-    name: "GUDURU JAYARAMI REDDY",
+    name: "CHEEPURUPALLI BHAVANA",
     type: "Regular",
     registrationNumber: "24VV1F0012",
   },
   {
-    name: "GUNTURU PRAGNA",
+    name: "DASARI JEETENDRA",
     type: "Regular",
     registrationNumber: "24VV1F0013",
   },
   {
-    name: "GUTTIKONDA VENKATA SAI",
-    type: "Detained",
+    name: "DESETTI HEMANTH",
+    type: "Regular",
     registrationNumber: "24VV1F0014",
   },
   {
-    name: "JAGADEESH MEHER",
+    name: "EDAKULA SAI KUMAR",
     type: "Regular",
     registrationNumber: "24VV1F0015",
   },
   {
-    name: "JAMMULA ANJANEYA SWAMI",
-    type: "Regular",
+    name: "EDUBILLI RAMYA",
+    type: "Detained",
     registrationNumber: "24VV1F0016",
   },
   {
-    name: "KADALI NAGENDRA KUMAR",
-    type: "Regular",
+    name: "GAVIRISETTI SANTOSHKUMAR",
+    type: "Detained",
     registrationNumber: "24VV1F0017",
   },
   {
-    name: "KAKI RAMBABU",
+    name: "JAGANNADHA HARIKA REDDY",
     type: "Regular",
     registrationNumber: "24VV1F0018",
   },
   {
-    name: "KAKINADA RAVI TEJA",
+    name: "JANKE VENKATA SIVA NARAYANA REDDY",
     type: "Regular",
     registrationNumber: "24VV1F0019",
   },
+
 
   {
     name: "KARO SIDDESWARI",
@@ -147,7 +148,7 @@ export const rollList = [
   },
   {
     name: "MASA RAJESH",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0030",
   },
   {
@@ -187,10 +188,19 @@ export const rollList = [
   },
   {
     name: "NERELLA MANOJ",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0038",
   },
-
+  {
+    name: "PADALA NAGA SUBRAHMANYAM",
+    type: "Regular",
+    registrationNumber: "24VV1F0039",
+  },
+  {
+    name: "PANIHARAM DHEERAJ KRISHNA PRASAD",
+    type: "Regular",
+    registrationNumber: "24VV1F0040",
+  },
   {
     name: "PATNANA PRASANNA RANI",
     type: "Regular",
@@ -198,7 +208,7 @@ export const rollList = [
   },
   {
     name: "PIRIDI APARNA",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0042",
   },
   {
@@ -213,12 +223,12 @@ export const rollList = [
   },
   {
     name: "SAI KEERTHI AMBATI",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0045",
   },
   {
     name: "SAMPATHIRAO NANDINI",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0046",
   },
   {
@@ -238,7 +248,7 @@ export const rollList = [
   },
   {
     name: "THOPALA LOKESH",
-    type: "Regular",
+    type: "Detained",
     registrationNumber: "24VV1F0050",
   },
   {
@@ -252,7 +262,7 @@ export const rollList = [
     registrationNumber: "24VV1F0052",
   },
   {
-    name: "VELAMALA SAISUSHMA",
+    name: "VELAMALA SAI SUSHMA",
     type: "Regular",
     registrationNumber: "24VV1F0053",
   },
@@ -317,3 +327,6 @@ export const rollList = [
     registrationNumber: "24VV1F0065",
   },
 ];
+
+
+
