@@ -61,30 +61,41 @@ const History = () => {
 
   return (
 <div className={`${isDarkTheme ? "bg-[#111827] text-white" : "bg-gray-100 text-black"} min-h-screen mt-[-10px] p-4 sm:p-6 transition-all duration-300`}>
-
-      <div className="flex space-x-4 mb-6">
+ {/* Tabs */}
+ <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-6 border-b pb-2 border-gray-300 dark:border-gray-700">
+        
+        
         <button
-          onClick={() => setActiveTab("history")}
-          className={`px-4 py-2 rounded transition font-medium ${
-            activeTab === "history"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-200 text-black dark:bg-gray-700 dark:text-white"
-          }`}
-        >
-          History
-        </button>
-        <button
-          onClick={() => setActiveTab("report")}
-          className={`px-4 py-2 rounded transition font-medium ${
-            activeTab === "report"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-200 text-black dark:bg-gray-700 dark:text-white"
-          }`}
-        >
-          Report
-        </button>
-      </div>
+            className={`text-sm font-semibold px-3 py-2 rounded-md transition-all duration-200 ${
+              activeTab === "history"
+                ? theme === "dark"
+                  ? "bg-blue-600 text-white"
+                  : "bg-blue-100 text-blue-800"
+                : theme === "dark"
+                ? "text-gray-300 hover:text-white"
+                : "text-gray-600 hover:text-black"
+            }`}          onClick={() => setActiveTab("history")}
 
+          >
+            History
+          </button>
+          <button
+            className={`text-sm font-semibold px-3 py-2 rounded-md transition-all duration-200 ${
+              activeTab === "report"
+                ? theme === "dark"
+                  ? "bg-blue-600 text-white"
+                  : "bg-blue-100 text-blue-800"
+                : theme === "dark"
+                ? "text-gray-300 hover:text-white"
+                : "text-gray-600 hover:text-black"
+            }`}
+            onClick={() => setActiveTab("report")}
+          >
+            Total Attendance Report
+          </button>
+  
+        </div>
+     
       {/* Tab Content */}
       {activeTab === "history" ? (
         <AttendanceHistory />

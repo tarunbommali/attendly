@@ -115,6 +115,9 @@ export default function Navbar() {
               {item.displayText}
             </Link>
           ))}
+          <button className="flex px-3 py-2 " onClick={() => onHandleLogout()}>
+            Logout</button>
+
         </nav>
       </aside>
       <div className="pt-16"></div>

@@ -47,7 +47,7 @@ const Login = () => {
         <div className="w-full bg-white rounded-lg shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign in to Attendly.One
+              Login to Attendly.One
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
@@ -84,10 +84,7 @@ const Login = () => {
                   required
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 >
-                  <option value="1">1</option>
                   <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
                 </select>
               </div>
 

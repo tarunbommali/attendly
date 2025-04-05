@@ -1,18 +1,19 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Navbar from "./components/global/Navbar";
-import Footer from './components/global/Footer';
+import Footer from "./components/global/Footer";
 import Home from "./routes/Home";
 import History from "./routes/History";
 import Report from "./routes/Report";
 import Login from "./routes/Login";
-import ProtectedRoute from "./components/global/ProtectedRoute"; // New import
-
+import ProtectedRoute from "./components/global/ProtectedRoute";
+import ScrollToTopButton from "./components/global/ScrollToTopButton";
 // Layout Component
 const AppLayout = () => (
   <>
     <Navbar />
     <Outlet />
     <Footer />
+    <ScrollToTopButton />
   </>
 );
 
@@ -20,7 +21,7 @@ const AppLayout = () => (
 const routes = [
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
   },
   {
     path: "/",
@@ -43,15 +44,15 @@ const routes = [
         ),
       },
       {
-        path: "/report",
+        path: "/xlsx-report",
         element: (
           <ProtectedRoute>
             <Report />
           </ProtectedRoute>
         ),
-      }
+      },
     ],
-  }
+  },
 ];
 
 // Create Router
