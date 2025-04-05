@@ -6,6 +6,7 @@ import { toggleSidebar } from "../../store/sidebarSlice";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import { toggleTheme } from "../../store/themeSlice";
+import { IoMdLogOut } from "react-icons/io";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -45,6 +46,11 @@ export default function Navbar() {
     </label>
   );
 
+  const onHandleLogout = () => {
+    localStorage.removeItem("userDetails");
+    window.location.href = "/login";
+  };
+
   return (
     <>
       <header
@@ -70,6 +76,7 @@ export default function Navbar() {
             </Link>
           ))}
           {renderThemeController()}
+          <button onClick={() => onHandleLogout()}><IoMdLogOut/></button>
         </nav>
         <div className="md:hidden flex items-center">
           {renderThemeController()}

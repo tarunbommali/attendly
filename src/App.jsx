@@ -4,38 +4,55 @@ import Footer from './components/global/Footer';
 import Home from "./routes/Home";
 import History from "./routes/History";
 import Report from "./routes/Report";
+import Login from "./routes/Login";
+import ProtectedRoute from "./components/global/ProtectedRoute"; // New import
 
 // Layout Component
 const AppLayout = () => (
   <>
     <Navbar />
     <Outlet />
-    <Footer/>
+    <Footer />
   </>
 );
 
 // Define Routes
 const routes = [
   {
+    path: "/login",
+    element: <Login />
+  },
+  {
     path: "/",
     element: <AppLayout />,
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/history",
-        element: <History />,
+        element: (
+          <ProtectedRoute>
+            <History />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:"/report",
-        element:<Report/>
+        path: "/report",
+        element: (
+          <ProtectedRoute>
+            <Report />
+          </ProtectedRoute>
+        ),
       }
     ],
-  },
+  }
 ];
 
 // Create Router
 export const AppRouter = createBrowserRouter(routes);
-

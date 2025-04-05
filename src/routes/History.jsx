@@ -1,65 +1,99 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import AttendanceHistory from "../components/History/AttendanceHistory";
+import { HistoryTable } from "../components/History/HistoryTable";
+import { rollList } from "../utils/rollList";
 import { useSelector } from "react-redux";
-import { FaChevronRight } from "react-icons/fa";
-import { AttendanceView } from "../components/History/AttendanceView";
-import { HistoryList } from "../components/History/HistoryList";
 
 const History = () => {
-  const [attendanceHistory, setAttendanceHistory] = useState({});
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [activeTab, setActiveTab] = useState("history"); // 👈 control which tab is active
+  const [studentReport, setStudentReport] = useState([]);
+  const [totalClasses, setTotalClasses] = useState(0);
 
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
   const theme = isDarkTheme ? "dark" : "light";
 
   useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkTheme);
+  }, [isDarkTheme]);
+
+  useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("attendance")) || {};
-    setAttendanceHistory(storedData);
+    const classesCount = Object.keys(storedData).length;
+    setTotalClasses(classesCount);
+
+    const studentMap = {};
+
+    Object.keys(storedData).forEach((date) => {
+      storedData[date].forEach((name) => {
+        const cleanName = name.trim().toLowerCase();
+        if (!studentMap[cleanName]) {
+          studentMap[cleanName] = { name, presentCount: 0 };
+        }
+        studentMap[cleanName].presentCount += 1;
+      });
+    });
+
+    const reportData = rollList.map((student) => {
+      const cleanName = student.name.trim().toLowerCase();
+      const attendanceData = studentMap[cleanName] || { presentCount: 0 };
+      const attendancePercentage =
+        classesCount > 0
+          ? ((attendanceData.presentCount / classesCount) * 100).toFixed(2)
+          : "0.00";
+
+      return {
+        registration: student.registrationNumber || "N/A",
+        name: student.name,
+        type: student.type,
+        presentCount: attendanceData.presentCount,
+        attendancePercentage,
+      };
+    });
+
+    setStudentReport(reportData);
   }, []);
 
+  const getColor = (percentage) => {
+    if (percentage < 50) return "text-red-500";
+    if (percentage < 75) return "text-orange-500";
+    return "text-green-500";
+  };
+
   return (
-    <div
-      className={`min-h-screen mt-[-10px] p-6 ${
-        theme === "dark"
-          ? "bg-gray-900 text-white"
-          : "bg-gray-100 text-gray-900"
-      }`}
-    >
-      {/* Breadcrumbs */}
-      <div className="text-sm mb-4">
-        <ul className="flex gap-2">
-          <li
-            className={`cursor-pointer ${
-              theme === "dark" ? "text-blue-400" : "text-blue-600"
-            }`}
-            onClick={() => setSelectedDate(null)}
-          >
-            History
-          </li>
-          {selectedDate && (
-            <li
-              className={`flex items-center ${
-                theme === "dark" ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              <FaChevronRight />
-              {selectedDate}
-            </li>
-          )}
-        </ul>
+<div className={`${isDarkTheme ? "bg-[#111827] text-white" : "bg-gray-100 text-black"} min-h-screen mt-[-10px] p-4 sm:p-6 transition-all duration-300`}>
+
+      <div className="flex space-x-4 mb-6">
+        <button
+          onClick={() => setActiveTab("history")}
+          className={`px-4 py-2 rounded transition font-medium ${
+            activeTab === "history"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 text-black dark:bg-gray-700 dark:text-white"
+          }`}
+        >
+          History
+        </button>
+        <button
+          onClick={() => setActiveTab("report")}
+          className={`px-4 py-2 rounded transition font-medium ${
+            activeTab === "report"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 text-black dark:bg-gray-700 dark:text-white"
+          }`}
+        >
+          Report
+        </button>
       </div>
 
-      {!selectedDate ? (
-        <HistoryList
-          attendanceHistory={attendanceHistory}
-          setSelectedDate={setSelectedDate}
-          theme={theme}
-        />
+      {/* Tab Content */}
+      {activeTab === "history" ? (
+        <AttendanceHistory />
       ) : (
-        <AttendanceView
-          attendanceHistory={attendanceHistory}
-          selectedDate={selectedDate}
+        <HistoryTable
+          studentReport={studentReport}
+          totalClasses={totalClasses}
           theme={theme}
-          setSelectedDate={setSelectedDate}
+          getColor={getColor}
         />
       )}
     </div>

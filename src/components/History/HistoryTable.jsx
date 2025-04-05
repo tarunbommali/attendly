@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export const ReportTable = ({ studentReport, totalClasses, theme, getColor }) => {
+export const HistoryTable = ({ studentReport, totalClasses, theme, getColor }) => {
     return (
       <div className="overflow-x-auto">
         <table className="w-full border-collapse shadow-md rounded-lg text-sm sm:text-base">

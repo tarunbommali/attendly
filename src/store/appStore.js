@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import themeReducer from "./themeSlice";
 import sidebarReducer from "./sidebarSlice";
-const appStore = configureStore({
+import graphSlice from "./graphSlice";
+ const appStore = configureStore({
   reducer: {
-    theme: themeReducer,
+     theme: themeReducer,
      sidebar: sidebarReducer, 
-
-  },
+     graph: graphSlice, 
+    },
 });
 
 export default appStore;
