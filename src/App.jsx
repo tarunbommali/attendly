@@ -7,6 +7,7 @@ import Report from "./routes/Report";
 import Login from "./routes/Login";
 import ProtectedRoute from "./components/global/ProtectedRoute";
 import ScrollToTopButton from "./components/global/ScrollToTopButton";
+
 // Layout Component
 const AppLayout = () => (
   <>

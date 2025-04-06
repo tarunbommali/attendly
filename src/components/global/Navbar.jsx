@@ -4,14 +4,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { Menu, X } from "lucide-react";
 import { toggleSidebar } from "../../store/sidebarSlice";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { toggleTheme } from "../../store/themeSlice";
 import { IoMdLogOut } from "react-icons/io";
+import { clearUserDetails } from "../../store/userSlice";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const expanded = useSelector((state) => state.sidebar.expanded);
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
+  const [showToast, setShowToast] = useState(false);
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const theme = isDarkTheme ? "dark" : "light";
 
@@ -45,10 +50,15 @@ export default function Navbar() {
       </svg>
     </label>
   );
-
   const onHandleLogout = () => {
     localStorage.removeItem("userDetails");
-    window.location.href = "/login";
+    dispatch(clearUserDetails()); // redux
+    setShowToast(true); // show toast
+
+    setTimeout(() => {
+      setShowToast(false);
+      window.location.href = "/login"; // redirect
+    }, 1500); // 1.5 seconds delay
   };
 
   return (
@@ -62,21 +72,30 @@ export default function Navbar() {
       >
         <h1 className="text-xl font-bold">Attendly.</h1>
         <nav className="hidden md:flex items-center space-x-6">
-          {navMenuList.map((item, index) => (
-            <Link
-              key={index}
-              to={item.pathname}
-              className={`hover:text-indigo-600 transition-colors ${
-                isDarkTheme
-                  ? "text-gray-300 hover:text-indigo-400"
-                  : "text-gray-700"
-              }`}
-            >
-              {item.displayText}
-            </Link>
-          ))}
+          {navMenuList.map((item, index) => {
+            const isActive = currentPath === item.pathname;
+
+            return (
+              <Link
+                key={index}
+                to={item.pathname}
+                className={`px-3 py-1 rounded-md transition-colors duration-200 ${
+                  isActive
+                    ? "text-indigo-500" // Active styling
+                    : isDarkTheme
+                    ? "text-gray-300 hover:text-indigo-400"
+                    : "text-gray-700 hover:text-indigo-600"
+                }`}
+              >
+                {item.displayText}
+              </Link>
+            );
+          })}
+
           {renderThemeController()}
-          <button onClick={() => onHandleLogout()}><IoMdLogOut/></button>
+          <button onClick={() => onHandleLogout()}>
+            <IoMdLogOut />
+          </button>
         </nav>
         <div className="md:hidden flex items-center">
           {renderThemeController()}
@@ -105,21 +124,39 @@ export default function Navbar() {
         }`}
       >
         <nav className="flex flex-col p-4">
-          {navMenuList.map((item, index) => (
-            <Link
-              key={index}
-              to={item.pathname}
-              className="py-2 px-3 rounded-md"
-              onClick={() => dispatch(toggleSidebar())}
-            >
-              {item.displayText}
-            </Link>
-          ))}
-          <button className="flex px-3 py-2 " onClick={() => onHandleLogout()}>
-            Logout</button>
+          {navMenuList.map((item, index) => {
+            const isActive = currentPath === item.pathname;
 
+            return (
+              <Link
+                key={index}
+                to={item.pathname}
+                className={`px-3 py-1 rounded-md transition-colors duration-200 ${
+                  isActive
+                    ? "text-indigo-600 " // Active styling
+                    : isDarkTheme
+                    ? "text-gray-300 hover:text-indigo-400"
+                    : "text-gray-700 hover:text-indigo-600"
+                }`}
+              >
+                {item.displayText}
+              </Link>
+            );
+          })}
+
+          <button className="flex px-3 py-2 " onClick={() => onHandleLogout()}>
+            Logout
+          </button>
         </nav>
       </aside>
+      {showToast && (
+        <div className="toast toast-center z-[999]">
+          <div className="alert alert-error">
+            <span>Logged out successfully.</span>
+          </div>
+        </div>
+      )}
+
       <div className="pt-16"></div>
     </>
   );

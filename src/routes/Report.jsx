@@ -32,14 +32,14 @@ function Report() {
   return (
     <div
       className={`min-h-screen p-4 sm:p-6 transition-all duration-300 mt-[-10px] ${
-        theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
+        theme === "dark"
+          ? "bg-gray-900 text-white"
+          : "bg-gray-100 text-gray-900"
       }`}
     >
       {/* Tabs */}
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-6 border-b pb-2 border-gray-300 dark:border-gray-700">
-        
-        
-      <button
+        <button
           className={`text-sm font-semibold px-3 py-2 rounded-md transition-all duration-200 ${
             activeTab === "overview"
               ? theme === "dark"
@@ -67,14 +67,14 @@ function Report() {
         >
           Student Attendance Report
         </button>
-
       </div>
 
       {/* Content */}
       <div>
-        {activeTab === "report" && <StudentCharts students={students} loading={loading} />}
-        {activeTab === "overview" && <ReportOverview loading={loading} />
-      }
+        {activeTab === "report" && (
+          <StudentCharts students={students} loading={loading} />
+        )}
+        {activeTab === "overview" && <ReportOverview loading={loading} />}
       </div>
     </div>
   );

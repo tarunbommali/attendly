@@ -2,27 +2,51 @@
 import { useSelector } from "react-redux";
 
 // Shimmer loading UI
-const ShimmerOverview = () => {
+const ShimmerOverview = ({ theme }) => {
+  const isDark = theme === "dark";
+
   return (
-    <div className="p-4 rounded-lg shadow-md bg-gray-100 dark:bg-gray-800 animate-pulse">
-      <div className="h-6 bg-gray-300 dark:bg-gray-700 rounded w-1/3 mb-4" />
+    <div
+      className={`p-4 rounded-lg shadow-md animate-pulse ${
+        isDark ? "bg-gray-900" : "bg-gray-100"
+      }`}
+    >
+      <div
+        className={`h-6 rounded w-1/3 mb-4 ${
+          isDark ? "bg-gray-700" : "bg-gray-300"
+        }`}
+      />
       <div className="space-y-3">
-        {[...Array(4)].map((_, i) => (
-          <div key={i} className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-2/3" />
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            className={`h-4 rounded w-2/3 ${isDark ? "bg-gray-700" : "bg-gray-300"}`}
+          />
         ))}
-        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2" />
-        <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4" />
+        <div className={`h-4 rounded w-1/2 ${isDark ? "bg-gray-700" : "bg-gray-300"}`} />
+        <div className={`h-4 rounded w-3/4 ${isDark ? "bg-gray-700" : "bg-gray-300"}`} />
+      </div>
+      <div className="space-y-3 mt-2">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            className={`h-4 rounded w-2/3 ${isDark ? "bg-gray-700" : "bg-gray-300"}`}
+          />
+        ))}
+        <div className={`h-4 rounded w-1/2 ${isDark ? "bg-gray-700" : "bg-gray-300"}`} />
+        <div className={`h-4 rounded w-3/4 ${isDark ? "bg-gray-700" : "bg-gray-300"}`} />
       </div>
     </div>
   );
 };
+
 
 const ReportOverview = ({ loading = false }) => {
   const students = useSelector((state) => state.graph.studentData);
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
   const theme = isDarkTheme ? "dark" : "light";
 
-  if (loading) return <ShimmerOverview />;
+  if (loading) return <ShimmerOverview theme={theme} />;
 
   const lowAttendanceStudents = students.filter(
     (student) => parseFloat(student.total_hours_percentage) < 75

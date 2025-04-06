@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { isDarkTheme: true };
+const initialState = { isDarkTheme: false };
 
 const themeSlice = createSlice({
   name: "theme",

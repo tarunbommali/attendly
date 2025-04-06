@@ -1,4 +1,5 @@
-export const rollList = [
+export const rollList = 
+[
   {
     name: "ALLUMALLI HARSHITHA",
     type: "Regular",

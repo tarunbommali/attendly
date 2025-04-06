@@ -24,20 +24,27 @@ const CustomTooltip = ({ active, payload, label }) => {
   }
   return null;
 };
+const ShimmerChart = ({ theme }) => {
+  const isDark = theme === "dark";
+  return (
+    <div
+      className={`w-full md:h-96 h-[400px] mb-10 p-4 rounded-2xl shadow-lg animate-pulse ${
+        isDark ? "bg-gray-900" : "bg-gray-100"
+      }`}
+    >
+      <div className={`${isDark ? "bg-gray-700" : "bg-gray-300"} h-6 w-40 rounded mb-4`} />
+      <div className={`${isDark ? "bg-gray-700" : "bg-gray-300"} h-5 w-60 rounded mb-6`} />
+      <div className={`${isDark ? "bg-gray-800" : "bg-gray-300"} h-60 rounded`} />
+    </div>
+  );
+};
 
-const ShimmerChart = () => (
-  <div className="w-full md:h-96 h-[400px] mb-10 p-4 rounded-2xl shadow-lg bg-gray-100 dark:bg-gray-800 animate-pulse">
-    <div className="h-6 w-40 bg-gray-300 dark:bg-gray-600 rounded mb-4" />
-    <div className="h-5 w-60 bg-gray-300 dark:bg-gray-600 rounded mb-6" />
-    <div className="h-60 bg-gray-300 dark:bg-gray-700 rounded" />
-  </div>
-);
 
 const SubjectChart = ({ student, loading = false }) => {
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
   const theme = isDarkTheme ? "dark" : "light";
 
-  if (loading) return <ShimmerChart />;
+  if (loading) return <ShimmerChart theme={theme} />;
 
   const {
     dbms_percentage,
