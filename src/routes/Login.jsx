@@ -60,7 +60,7 @@ const Login = () => {
               Login to Attendly.One
             </h1>
             <span className="text-sm text-gray-700 dark:text-gray-300">
-              JNTU-GV{" "}
+              JNTU-GV
             </span>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
@@ -80,7 +80,7 @@ const Login = () => {
                 >
                   <option value="">-- Select Department --</option>
                   <option value="MCA">MCA</option>
-                  <option value="MTECH">MTECH</option>
+                  
                 </select>
               </div>
 

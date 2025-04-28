@@ -113,6 +113,8 @@ export default function Navbar() {
           onClick={() => dispatch(toggleSidebar())}
         ></div>
       )}
+
+      {/* Sidebar for mobile view */}
       <aside
         ref={sidebarRef}
         className={`fixed top-0 left-0 h-screen w-64 shadow-md transform transition-transform duration-300 md:hidden z-50 ${
@@ -131,9 +133,10 @@ export default function Navbar() {
               <Link
                 key={index}
                 to={item.pathname}
+                onClick={() => dispatch(toggleSidebar())}
                 className={`px-3 py-1 rounded-md transition-colors duration-200 ${
                   isActive
-                    ? "text-indigo-600 " // Active styling
+                    ? "text-indigo-600 "
                     : isDarkTheme
                     ? "text-gray-300 hover:text-indigo-400"
                     : "text-gray-700 hover:text-indigo-600"
@@ -144,7 +147,13 @@ export default function Navbar() {
             );
           })}
 
-          <button className="flex px-3 py-2 " onClick={() => onHandleLogout()}>
+          <button
+            className="flex px-3 py-2"
+            onClick={() => {
+              dispatch(toggleSidebar()); 
+              onHandleLogout();
+            }}
+          >
             Logout
           </button>
         </nav>

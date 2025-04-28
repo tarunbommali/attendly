@@ -1,22 +1,11 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
-import Navbar from "./components/global/Navbar";
-import Footer from "./components/global/Footer";
-import Home from "./routes/Home";
+import { createBrowserRouter } from "react-router-dom";
 import History from "./routes/History";
 import Report from "./routes/Report";
 import Login from "./routes/Login";
-import ProtectedRoute from "./components/global/ProtectedRoute";
-import ScrollToTopButton from "./components/global/ScrollToTopButton";
 
-// Layout Component
-const AppLayout = () => (
-  <>
-    <Navbar />
-    <Outlet />
-    <Footer />
-    <ScrollToTopButton />
-  </>
-);
+import { AppLayout } from "./AppLayout";
+
+import Home from "./routes/Home";
 
 // Define Routes
 const routes = [
@@ -30,27 +19,15 @@ const routes = [
     children: [
       {
         path: "/",
-        element: (
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        ),
+        element: <Home />,
       },
       {
         path: "/history",
-        element: (
-          <ProtectedRoute>
-            <History />
-          </ProtectedRoute>
-        ),
+        element: <History />,
       },
       {
-        path: "/xlsx-report",
-        element: (
-          <ProtectedRoute>
-            <Report />
-          </ProtectedRoute>
-        ),
+        path: "/xlsx-report/:tabId?",
+        element: <Report />,
       },
     ],
   },

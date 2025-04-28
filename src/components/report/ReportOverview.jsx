@@ -40,9 +40,8 @@ const ShimmerOverview = ({ theme }) => {
   );
 };
 
-
 const ReportOverview = ({ loading = false }) => {
-  const students = useSelector((state) => state.graph.studentData);
+  const students = useSelector((state) => state.sheetdata.students); // UPDATED
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
   const theme = isDarkTheme ? "dark" : "light";
 

@@ -32,13 +32,22 @@ const ShimmerChart = ({ theme }) => {
         isDark ? "bg-gray-900" : "bg-gray-100"
       }`}
     >
-      <div className={`${isDark ? "bg-gray-700" : "bg-gray-300"} h-6 w-40 rounded mb-4`} />
-      <div className={`${isDark ? "bg-gray-700" : "bg-gray-300"} h-5 w-60 rounded mb-6`} />
-      <div className={`${isDark ? "bg-gray-800" : "bg-gray-300"} h-60 rounded`} />
+      <div
+        className={`${
+          isDark ? "bg-gray-700" : "bg-gray-300"
+        } h-6 w-40 rounded mb-4`}
+      />
+      <div
+        className={`${
+          isDark ? "bg-gray-700" : "bg-gray-300"
+        } h-5 w-60 rounded mb-6`}
+      />
+      <div
+        className={`${isDark ? "bg-gray-800" : "bg-gray-300"} h-60 rounded`}
+      />
     </div>
   );
 };
-
 
 const SubjectChart = ({ student, loading = false }) => {
   const isDarkTheme = useSelector((state) => state.theme.isDarkTheme);
@@ -100,8 +109,13 @@ const SubjectChart = ({ student, loading = false }) => {
         >
           {rollNumber} - {studentName}
         </div>
-        <div className="font-normal text-sm md:text-base text-gray-600 dark:text-gray-300">
-          Total: {parseFloat(total_hours_percentage).toFixed(2)}%, Hours: {total_hours}
+        <div
+          className={`font-normal text-sm md:text-base ${
+            isDarkTheme ? "text-white" : "text-gray-800"
+          }`}
+        >
+          Total: {parseFloat(total_hours_percentage).toFixed(2)}%, Hours:{" "}
+          {total_hours}
         </div>
       </div>
 
@@ -112,13 +126,22 @@ const SubjectChart = ({ student, loading = false }) => {
             <BarChart data={data}>
               <XAxis
                 dataKey="subject"
-                tick={{ fontSize: 12, fill: theme === "dark" ? "#ffffff" : "#000000" }}
+                tick={{
+                  fontSize: 12,
+                  fill: theme === "dark" ? "#ffffff" : "#000000",
+                }}
               />
               <YAxis
                 domain={[0, 100]}
-                tick={{ fontSize: 12, fill: theme === "dark" ? "#ffffff" : "#000000" }}
+                tick={{
+                  fontSize: 12,
+                  fill: theme === "dark" ? "#ffffff" : "#000000",
+                }}
               />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: "transparent" }} />
+              <Tooltip
+                content={<CustomTooltip />}
+                cursor={{ fill: "transparent" }}
+              />
               <Legend
                 verticalAlign="top"
                 height={36}

@@ -1,14 +1,17 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { rollList } from "../../utils/rollList";
-import StudentStatsChart from "./StudentStatsChart";
+ import StudentStatsChart from "./StudentStatsChart";
 import AttendanceList from "./AttendanceList";
 import AttendanceHeader from "./AttendanceHeader";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaListCheck, FaDownload } from "react-icons/fa6";
 import { RiSortNumberAsc } from "react-icons/ri";
+import { useOutletContext } from "react-router-dom";
 
 const Heropage1 = () => {
+  const { studentRollList } = useOutletContext();
+  
   const [presentsDetails, setPresentsDetails] = useState([]);
   const [displayStyle, setDisplayStyle] = useState("number");
   const [attendanceSubmitted, setAttendanceSubmitted] = useState(false);
@@ -114,7 +117,7 @@ const Heropage1 = () => {
           toggleDisplayStyle={toggleDisplayStyle}
           displayStyle={displayStyle}
           theme={theme}
-          rollList={rollList}
+          rollList={studentRollList}
           attendanceSubmitted={attendanceSubmitted}
           handleSubmit={handleSubmit}
           handleEdit={handleEdit}
@@ -199,12 +202,12 @@ const Heropage1 = () => {
 
       {attendanceSubmitted ? (
         <StudentStatsChart
-          rollList={rollList}
+          rollList={studentRollList}
           presentsDetails={presentsDetails}
         />
       ) : (
         <AttendanceList
-          rollList={rollList}
+          rollList={studentRollList}
           presentsDetails={presentsDetails}
           toggleAttendance={toggleAttendance}
           displayStyle={displayStyle}
