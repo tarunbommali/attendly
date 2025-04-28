@@ -7,6 +7,8 @@ const AttendanceList = ({
     theme,
     attendanceSubmitted,
   }) => {
+
+    console.log("attendance")
     return (
       <div className="flex flex-wrap gap-3 px-4">    
         {rollList.map((item, index) => {
