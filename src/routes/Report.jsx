@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { setStudentData } from "../store/sheetDataSlice"; // correct import
-import { xslsheetURL } from "../utils/constants";
+import { lastUpdateOn, xslsheetURL } from "../utils/constants";
 import { useParams, useNavigate } from "react-router-dom";
 import StudentCharts from "../components/report/StudentCharts";
 import ReportOverview from "../components/report/ReportOverview";
@@ -72,6 +72,7 @@ function Report() {
           </button>
         ))}
       </div>
+      <h1 className="my-2">{`LAST UPDATE ON: ${lastUpdateOn}`}</h1>
 
       {/* Active Component Render */}
       <div>
