@@ -1,8 +1,7 @@
 # Attendly.One - JNTU-GV 
 
 **Attendly** is a student attendance management system built using **React**.  
-It enables users to manage and track attendance in an intuitive and organized way, specifically tailored for **JNTU-GV** students and staff.
-
+It enables users to manage and track attendance in an intuitive and organized way.
 ---
 
 ## 🚀 Features
