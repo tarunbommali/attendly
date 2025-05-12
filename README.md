@@ -74,4 +74,4 @@ This project is actively being developed. Suggestions, feedback, and contributio
 
 ## ✨ Author
 
-Made with 💙 by [Tarun Bommali](https://github.com/tarunbommali)
+Made with 💙 by [Tarun Bommali](https://tarunbommali.netlify.app/)
