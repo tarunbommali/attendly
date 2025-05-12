@@ -53,7 +53,6 @@ It enables users to manage and track attendance in an intuitive and organized wa
 
 ## 🤝 Collaboration
 
-Calling all **JNTU-GV students**!  
 If you're passionate about building real-world web applications and want to **collaborate on a MERN Stack project**, you're invited to join .
 
 Attendly looking for :
